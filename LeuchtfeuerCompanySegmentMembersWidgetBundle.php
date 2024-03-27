@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt;
+namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle;
 
 use Mautic\IntegrationsBundle\Bundle\AbstractPluginBundle;
 

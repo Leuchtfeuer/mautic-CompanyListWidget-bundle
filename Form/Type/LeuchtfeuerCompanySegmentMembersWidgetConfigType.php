@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Form\Type;
+namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Form\Type;
 
 use Mautic\IntegrationsBundle\Form\Type\IntegrationConfigType;
 use Symfony\Component\Form\AbstractType;

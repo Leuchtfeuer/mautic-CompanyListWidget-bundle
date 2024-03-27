@@ -9,7 +9,7 @@ return [
     'services'    => [
         'other' => [
         'leuchtfeuercompanysegmentmemberswidget.config' => [
-            'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration\Config::class,
+            'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Config::class,
             'arguments' => [
                 'mautic.integrations.helper',
                 ],
@@ -17,18 +17,27 @@ return [
             ],
         'integrations' => [
             'mautic.integration.leuchtfeuercompanysegmentmemberswidget' => [
-                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration::class,
+                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration::class,
                 'tags'  => [
                     'mautic.integration',
                     'mautic.basic_integration',
                     ],
                 ],
             'leuchtfeuercompanysegmentmemberswidget.integration.configuration' => [
-                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration\Support\ConfigSupport::class,
+                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Support\ConfigSupport::class,
                 'tags'  => [
                     'mautic.config_integration',
                     ],
                 ],
+        ],
+        'fixtures' => [
+            'mautic.leuchtfeuercompanysegmentmemberswidget.fixture.company' => [
+                'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanyData::class,
+                'tag'       => \Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass::FIXTURE_TAG,
+                'arguments' => ['mautic.lead.model.company'],
+
+                ],
             ],
-        ]
+        ],
+
 ];

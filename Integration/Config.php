@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration;
+namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration;
 
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;

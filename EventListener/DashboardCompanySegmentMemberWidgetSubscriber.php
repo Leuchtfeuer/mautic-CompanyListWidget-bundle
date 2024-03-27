@@ -1,12 +1,13 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\EventListener;
+namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\EventListener;
 
 use Mautic\DashboardBundle\Event\WidgetDetailEvent;
 use Mautic\DashboardBundle\EventListener\DashboardSubscriber;
 use Mautic\LeadBundle\Model\LeadModel;
-use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Form\Type\DashboardCompanySegmentMembersType;
-use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration\Config;
+use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Form\Type\DashboardCompanySegmentMembersType;
+use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Config;
+use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -45,6 +46,7 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
         protected RouterInterface $router,
         protected TranslatorInterface $translator,
         protected Config $config,
+        protected CompanySegmentRepository $companySegmentRepository,
     ) {
     }
 
@@ -72,6 +74,8 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
                 'value' => 1,
                 ]
         ];
+
+
 
         $leads = $this->leadModel->getLeadList($limit, $params['dateFrom'], $params['dateTo'], $filters);
         $items    = [];

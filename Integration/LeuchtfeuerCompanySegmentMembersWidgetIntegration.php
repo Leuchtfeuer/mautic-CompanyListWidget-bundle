@@ -1,6 +1,6 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundlealt\Integration;
+namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration;
 
 use Mautic\IntegrationsBundle\Integration\BasicIntegration;
 use Mautic\IntegrationsBundle\Integration\ConfigurationTrait;
