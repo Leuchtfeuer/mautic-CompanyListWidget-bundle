@@ -25,16 +25,8 @@ class DashboardCompanySegmentMembersType extends AbstractType
             $companySegments[$list['name']] = $list['id'];
         }
 
-/*
-        $lists    = $this->segmentModel->getUserLists();
-        $segments = [];
-        foreach ($lists as $list) {
-            $segments[$list['name']] = $list['id'];
 
-        }
-*/
-
-        $builder->add('Companysegments', ChoiceType::class, [
+        $builder->add('companysegments', ChoiceType::class, [
                 'label'             => 'mautic.lead.list.filter',
                 'multiple'          => true,
                 'choices'           => $companySegments,
@@ -56,8 +48,8 @@ class DashboardCompanySegmentMembersType extends AbstractType
         );
 
 
-        $builder->add('numberofentries', TextType::class, [
-                'label'             => 'mautic.widget.company.segment.members.numberofentries',
+        $builder->add('limit', TextType::class, [
+                'label'             => 'mautic.widget.company.segment.members.limit',
                 'label_attr'        => ['class' => 'control-label'],
                 'attr'              => ['class' => 'form-control'],
                 'required'          => false,
