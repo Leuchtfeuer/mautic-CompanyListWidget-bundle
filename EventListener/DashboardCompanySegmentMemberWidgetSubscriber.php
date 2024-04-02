@@ -77,6 +77,9 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
         $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($segmentArray);
         $companies = $this->getCompanyArrayFromCompanySegments($companySegments);
         //companies sortieren
+        //$sortParameter = array_column($companies, 'dateAdded');
+        //array_multisort($sortParameter, SORT_ASC, $companies);
+        //array auf limit reduzieren
                     foreach ($companies as $company) {
                         $companyId = $company->getId();
                         $companyName = $company->getName();
