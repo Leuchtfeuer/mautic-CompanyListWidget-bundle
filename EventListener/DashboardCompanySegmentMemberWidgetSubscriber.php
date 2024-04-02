@@ -19,7 +19,7 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
      *
      * @var string
      */
-    protected $bundle = 'lead';
+    protected $bundle = 'company';
 
     /**
      * Define the widget(s).
@@ -55,6 +55,7 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
     {
 
         if (!$this->config->isPublished()) {
+
             return;
         }
 
@@ -64,23 +65,30 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
 
         $params = $event->getWidget()->getParams();
 
-        if (!empty($params['limit'])) {
-            $limit = $params['limit'];
-        }
-        else{
-            $limit = round((($event->getWidget()->getHeight() - 80) / 35) - 1);
-        }
+
 
 
         $items    = [];
         $segmentArray = $params['companysegments'];
         $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($segmentArray);
         $companies = $this->getCompanyArrayFromCompanySegments($companySegments);
+
         //companies sortieren
-        //$sortParameter = array_column($companies, 'dateAdded');
-        //array_multisort($sortParameter, SORT_ASC, $companies);
+        usort($companies, function($a, $b) {
+            return $a->getDateAdded() <=> $b->getDateAdded();
+        });
+
         //array auf limit reduzieren
-                    foreach ($companies as $company) {
+        if (!empty($params['limit'])) {
+            $limit = $params['limit'];
+        }
+        else{
+            $limit = round((($event->getWidget()->getHeight() - 80) / 35) - 1);
+        }
+        $limitedCompanies = array_slice($companies, 0, $limit);
+
+                    foreach ($limitedCompanies as $company) {
+                        $testDateAdded = $company->getDateAdded();
                         $companyId = $company->getId();
                         $companyName = $company->getName();
                         $companyWebsite = $company->getWebsite();
