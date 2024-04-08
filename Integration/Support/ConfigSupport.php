@@ -6,14 +6,9 @@ namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\
 
 use Mautic\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
-use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Form\Type\LeuchtfeuerCompanySegmentMembersWidgetConfigType;
 use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration;
 
 class ConfigSupport extends LeuchtfeuerCompanySegmentMembersWidgetIntegration implements ConfigFormInterface
 {
     use DefaultConfigFormTrait;
-    public function getConfigFormName(): ?string
-    {
-        return LeuchtfeuerCompanySegmentMembersWidgetConfigType::class;
-    }
 }

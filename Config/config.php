@@ -31,10 +31,17 @@ return [
                 ],
         ],
         'fixtures' => [
-            'mautic.leuchtfeuercompanysegmentmemberswidget.fixture.company' => [
-                'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanyData::class,
+            'mautic.leuchtfeuercompanysegmentmemberswidget.fixture.companysegment' => [
+                'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanySegmentData::class,
                 'tag'       => \Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass::FIXTURE_TAG,
-                'arguments' => ['mautic.lead.model.company'],
+                'arguments' => [
+                    'mautic.leuchtfeuercompanysegments.model.companysegment',
+                    'mautic.lead.model.company',
+                    'mautic.lead.repository.company',
+
+                ]
+
+
 
                 ],
             ],

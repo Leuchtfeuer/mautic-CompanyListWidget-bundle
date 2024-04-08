@@ -7,8 +7,7 @@ use Mautic\DashboardBundle\EventListener\DashboardSubscriber;
 use Mautic\LeadBundle\Model\LeadModel;
 use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Form\Type\DashboardCompanySegmentMembersType;
 use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Config;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegment;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
+use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -65,20 +64,15 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
 
         $params = $event->getWidget()->getParams();
 
-
-
-
         $items    = [];
         $segmentArray = $params['companysegments'];
         $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($segmentArray);
-        $companies = $this->getCompanyArrayFromCompanySegments($companySegments);
+        $companies = $this->companySegmentRepository->getCompanyArrayFromCompanySegments($companySegments);
 
-        //companies sortieren
         usort($companies, function($a, $b) {
             return $a->getDateAdded() <=> $b->getDateAdded();
         });
 
-        //array auf limit reduzieren
         if (!empty($params['limit'])) {
             $limit = $params['limit'];
         }
@@ -88,11 +82,9 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
         $limitedCompanies = array_slice($companies, 0, $limit);
 
                     foreach ($limitedCompanies as $company) {
-                        $testDateAdded = $company->getDateAdded();
                         $companyId = $company->getId();
                         $companyName = $company->getName();
                         $companyWebsite = $company->getWebsite();
-                        $companyDataAdded = $company->getDateAdded();
                         $companyUrl = ($companyId !== null) ? $this->router->generate('mautic_company_action', ['objectAction' => 'view', 'objectId' => $companyId]) : '';
                         $nameType    = ($companyId !== null) ? 'link' : 'text';
                         $websiteType    = ($companyWebsite !== null) ? 'link' : 'text';
@@ -104,11 +96,14 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
                                 'value' => $companyName,
                                 'type'  => $nameType,
                                 'link'  => $companyUrl,
+                                'external' => true,
+
                             ],
                             [
                                 'value' => $companyWebsite,
                                 'type'  => $websiteType,
                                 'link'  => $companyWebsite,
+                                'external' => true,
                             ],
 
                         ];
@@ -117,30 +112,6 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
                     }
 
 
-/*
-        if (empty($leads)) {
-            $leads[] = [
-                'name' => $this->translator->trans('mautic.report.report.noresults'),
-            ];
-        }
-
-        // Build table rows with links
-        foreach ($leads as &$lead) {
-            $leadUrl = isset($lead['id']) ? $this->router->generate('mautic_contact_action', ['objectAction' => 'view', 'objectId' => $lead['id']]) : '';
-            $type    = isset($lead['id']) ? 'link' : 'text';
-            $row     = [
-                [
-                    'value' => $lead['name'],
-                    'type'  => $type,
-                    'link'  => $leadUrl,
-                ],
-                ['value' => 'abc'],
-                ['value' => 'abcd'],
-            ];
-
-        $items[] = $row;
-        }
-*/
         if (!$event->isCached()) {
             $event->setTemplateData([
                 'headItems' => [
@@ -155,19 +126,5 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
     $event->setTemplate('@MauticCore/Helper/table.html.twig');
     $event->stopPropagation();
     }
-    public function getCompanyArrayFromCompanySegments(array $companySegments){
-        if (empty($companySegments)) {
-            return;
-            }
-        $companies = [];
-        foreach ($companySegments as $companySegment) {
-            if ($companySegment instanceof CompanySegment) {
-                foreach ($companySegment->getCompanies() as $company) {
-                    $companies[] = $company;
-                }
-                }
-            }
-        return array_unique($companies, SORT_REGULAR);
-        }
 
 }
