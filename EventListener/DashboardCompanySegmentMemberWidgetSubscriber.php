@@ -18,7 +18,7 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
      *
      * @var string
      */
-    protected $bundle = 'company';
+    protected $bundle = 'companysegmentwidget';
 
     /**
      * Define the widget(s).
