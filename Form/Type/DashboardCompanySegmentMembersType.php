@@ -28,7 +28,7 @@ class DashboardCompanySegmentMembersType extends AbstractType
 
 
         $builder->add('companysegments', ChoiceType::class, [
-                'label'             => 'mautic.lead.list.filter',
+                'label'             => 'mautic.widget.company.segment.filter',
                 'multiple'          => true,
                 'choices'           => $companySegments,
                 'label_attr'        => ['class' => 'control-label'],

@@ -15,6 +15,13 @@
         "leuchtfeuer/mautic-companysegments-bundle": "^"
     },
 
+    "require-dev": {
+        "codeception/codeception": "*",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-asserts": "*",
+        "codeception/module-webdriver": "^4.0"
+    },
+
     "extra": {
         "install-directory-name": "LeuchtfeuerCompanySegmentWidgetBundle"
     },

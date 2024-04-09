@@ -53,11 +53,6 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
     public function onWidgetDetailGenerate(WidgetDetailEvent $event): void
     {
 
-        if (!$this->config->isPublished()) {
-
-            return;
-        }
-
         if ('company.segment.members' != $event->getType()) {
             return;
         }
