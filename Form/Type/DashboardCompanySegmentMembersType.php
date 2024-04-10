@@ -37,7 +37,7 @@ class DashboardCompanySegmentMembersType extends AbstractType
             ]
         );
 
-        $orderoptions = ['Date Created' => 1];
+        $orderoptions = ['mautic.widget.company.segment.members.orderbydatecreated' => 1];
         $builder->add('order', ChoiceType::class, [
                 'label'             => 'mautic.widget.company.segment.members.ordertitle',
                 'multiple'          => false,
@@ -48,7 +48,7 @@ class DashboardCompanySegmentMembersType extends AbstractType
             ]
         );
 
-
+/*
         $builder->add('limit', IntegerType::class, [
                 'label'             => 'mautic.widget.company.segment.members.limit',
                 'label_attr'        => ['class' => 'control-label'],
@@ -56,5 +56,6 @@ class DashboardCompanySegmentMembersType extends AbstractType
                 'required'          => false,
             ]
         );
+*/
     }
 }

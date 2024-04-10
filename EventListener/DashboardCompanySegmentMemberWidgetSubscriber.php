@@ -68,12 +68,15 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
             return $a->getDateAdded() <=> $b->getDateAdded();
         });
 
+        /*
         if (!empty($params['limit'])) {
             $limit = $params['limit'];
         }
         else{
             $limit = round((($event->getWidget()->getHeight() - 80) / 35) - 1);
         }
+        */
+        $limit = round((($event->getWidget()->getHeight() - 80) / 35) - 1);
         $limitedCompanies = array_slice($companies, 0, $limit);
 
                     foreach ($limitedCompanies as $company) {
