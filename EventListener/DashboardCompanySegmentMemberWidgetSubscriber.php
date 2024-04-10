@@ -65,7 +65,7 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
         $companies = $this->companySegmentRepository->getCompanyArrayFromCompanySegments($companySegments);
 
         usort($companies, function($a, $b) {
-            return $a->getDateAdded() <=> $b->getDateAdded();
+            return $b->getDateAdded() <=> $a->getDateAdded();
         });
 
         /*
