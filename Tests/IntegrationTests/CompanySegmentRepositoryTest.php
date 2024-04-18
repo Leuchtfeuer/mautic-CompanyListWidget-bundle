@@ -9,10 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CompanySegmentRepositoryTest extends KernelTestCase
 {
-    /**
-     * @var CompanySegmentRepository
-     */
-    private $companySegmentRepository;
+
+    private \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository $companySegmentRepository;
 
     protected function setUp(): void
     {
@@ -21,7 +19,7 @@ class CompanySegmentRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class);
+        $this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class, \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository::class);
     }
     public function testGetSegmentObjectsViaListOfIDs()
     {

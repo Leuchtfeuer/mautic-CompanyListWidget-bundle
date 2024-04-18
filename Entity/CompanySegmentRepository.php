@@ -28,9 +28,8 @@ class CompanySegmentRepository extends CommonRepository
             $q->andWhere($q->expr()->in('cs.id', $ids));
         }
 
-        $result = $q->getQuery()->getResult();
 
-        return $result;
+        return $q->getQuery()->getResult();
     }
 
     public function getCompanyArrayFromCompanySegments(array $companySegments){

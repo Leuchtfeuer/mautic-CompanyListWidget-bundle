@@ -109,7 +109,6 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
                         $items[] = $row;
                     }
 
-
         if (!$event->isCached()) {
             $event->setTemplateData([
                 'headItems' => [
@@ -121,7 +120,8 @@ class DashboardCompanySegmentMemberWidgetSubscriber extends DashboardSubscriber
             ]);
         }
 
-    $event->setTemplate('@MauticCore/Helper/table.html.twig');
+    //$event->setTemplate('@MauticCore/Helper/table.html.twig');
+    $event->setTemplate('@LeuchtfeuerCompanySegmentMembersWidget/companysegmentmemberstable.html.twig');
     $event->stopPropagation();
     }
 
