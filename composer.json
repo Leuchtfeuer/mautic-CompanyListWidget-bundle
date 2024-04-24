@@ -11,21 +11,12 @@
             "email": "mautic-plugins@Leuchtfeuer.com"
         }
     ],
-    "require": {
-        "leuchtfeuer/mautic-companysegments-bundle": "^"
-    },
-
     "require-dev": {
-        "codeception/codeception": "*",
-        "codeception/module-phpbrowser": "*",
-        "codeception/module-asserts": "*",
-        "codeception/module-webdriver": "^4.0"
+        "friendsofphp/php-cs-fixer": "^3.54"
     },
-
     "extra": {
         "install-directory-name": "LeuchtfeuerCompanySegmentWidgetBundle"
     },
-
     "autoload": {
         "psr-4": {
             "MauticPlugin\\LeuchtfeuerCompanySegmentMembersWidgetBundle\\": ""
@@ -35,5 +26,9 @@
         "psr-4": {
             "MauticPlugin\\LeuchtfeuerCompanySegmentsMembersWidgetBundle\\Tests\\": "Tests"
         }
+    },
+    "scripts": {
+        "fixcs": "./vendor/bin/php-cs-fixer fix --show-progress dots -v"
     }
 }
+

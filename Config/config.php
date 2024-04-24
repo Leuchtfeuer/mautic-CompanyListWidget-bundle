@@ -8,43 +8,38 @@ return [
 
     'services'    => [
         'other' => [
-        'leuchtfeuercompanysegmentmemberswidget.config' => [
-            'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Config::class,
-            'arguments' => [
-                'mautic.integrations.helper',
+            'leuchtfeuercompanysegmentmemberswidget.config' => [
+                'class'     => MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Config::class,
+                'arguments' => [
+                    'mautic.integrations.helper',
                 ],
             ],
-            ],
+        ],
         'integrations' => [
             'mautic.integration.leuchtfeuercompanysegmentmemberswidget' => [
-                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration::class,
+                'class' => MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration::class,
                 'tags'  => [
                     'mautic.integration',
                     'mautic.basic_integration',
-                    ],
                 ],
+            ],
             'leuchtfeuercompanysegmentmemberswidget.integration.configuration' => [
-                'class' => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Support\ConfigSupport::class,
+                'class' => MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Support\ConfigSupport::class,
                 'tags'  => [
                     'mautic.config_integration',
-                    ],
                 ],
+            ],
         ],
         'fixtures' => [
             'mautic.leuchtfeuercompanysegmentmemberswidget.fixture.companysegment' => [
-                'class'     => \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanySegmentData::class,
-                'tag'       => \Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass::FIXTURE_TAG,
+                'class'     => MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanySegmentData::class,
+                'tag'       => Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass::FIXTURE_TAG,
                 'arguments' => [
                     'mautic.leuchtfeuercompanysegments.model.companysegment',
                     'mautic.lead.model.company',
                     'mautic.lead.repository.company',
-
-                ]
-
-
-
                 ],
             ],
         ],
-
+    ],
 ];

@@ -20,42 +20,42 @@ class LoadCompanySegmentData extends AbstractFixture implements OrderedFixtureIn
         private CompanyRepository $companyRepository,
     ) {
     }
+
     public function load(ObjectManager $manager): void
     {
         $companies = CsvHelper::csv_to_array(__DIR__.'/fakecompanydata.csv');
         foreach ($companies as $count => $l) {
             $company = new Company();
             foreach ($l as $col => $val) {
-                if ($col !== "dateAdded") {
+                if ('dateAdded' !== $col) {
                     $company->addUpdatedField($col, $val);
-                }
-                else {
+                } else {
                     $company->setDateAdded(new \DateTime($val));
                 }
             }
             $this->companyModel->saveEntity($company);
-            $this->setReference('company-' . $count, $company);
+            $this->setReference('company-'.$count, $company);
         }
 
         $companySegments = CsvHelper::csv_to_array(__DIR__.'/fakecompanysegmentdata.csv');
         foreach ($companySegments as $segmentData) {
             $companySegment = new CompanySegment();
-            $segmentName = $segmentData["name"];
+            $segmentName    = $segmentData['name'];
             $companySegment->setName($segmentName);
-            $companySegment->setAlias($segmentData["alias"]);
-            $companySegment->setIsPublished($segmentData["is_published"]);
-            if ($segmentName == "CompanysegmentNr1"){
-                $companies = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company A"]);
-                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company B"])[0];
-            } elseif ($segmentName == "CompanysegmentNr2"){
+            $companySegment->setAlias($segmentData['alias']);
+            $companySegment->setIsPublished($segmentData['is_published']);
+            if ('CompanysegmentNr1' == $segmentName) {
+                $companies   = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company A']);
+                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company B'])[0];
+            } elseif ('CompanysegmentNr2' == $segmentName) {
                 $companies = [];
-            } elseif ($segmentName == "CompanysegmentNr3"){
-                $companies = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company B"]);
-                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company D"])[0];
-                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company C"])[0];
-            } elseif ($segmentName == "CompanysegmentNr4"){
-                $companies = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company D"]);
-                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ["companyname" => "Company E"])[0];
+            } elseif ('CompanysegmentNr3' == $segmentName) {
+                $companies   = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company B']);
+                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company D'])[0];
+                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company C'])[0];
+            } elseif ('CompanysegmentNr4' == $segmentName) {
+                $companies   = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company D']);
+                $companies[] = $this->companyRepository->getCompaniesByUniqueFields($uniqueFieldsWithData = ['companyname' => 'Company E'])[0];
             }
             foreach ($companies as $company) {
                 $companySegment->addCompanies($company);
@@ -63,8 +63,8 @@ class LoadCompanySegmentData extends AbstractFixture implements OrderedFixtureIn
 
             $this->companySegmentModel->saveEntity($companySegment);
             $this->setReference('companysegment-'.$segmentName, $companySegment);
-            }
-            }
+        }
+    }
 
     public function getOrder()
     {

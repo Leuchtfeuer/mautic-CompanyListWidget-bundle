@@ -2,14 +2,11 @@
 
 namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\IntegrationTests;
 
-
 use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegment;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CompanySegmentRepositoryTest extends KernelTestCase
 {
-
     private \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository $companySegmentRepository;
 
     protected function setUp(): void
@@ -21,9 +18,9 @@ class CompanySegmentRepositoryTest extends KernelTestCase
 
         $this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class, \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository::class);
     }
+
     public function testGetSegmentObjectsViaListOfIDs()
     {
-
         // Get all Company Segments from the database
         $allCompanySegments = $this->companySegmentRepository->findAll();
 

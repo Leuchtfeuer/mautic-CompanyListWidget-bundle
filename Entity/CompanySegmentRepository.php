@@ -2,19 +2,31 @@
 
 namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity;
 
-use Mautic\CoreBundle\Entity\CommonRepository;
-use Mautic\UserBundle\Entity\User;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegment;
+
 use Doctrine\Persistence\ManagerRegistry;
+use Mautic\CoreBundle\Entity\CommonRepository;
+use Mautic\LeadBundle\Entity\Company;
+use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegment;
 
+use function PHPUnit\Framework\throwException;
 
+/**
+ * @template T of object
+ *
+ * @extends CommonRepository<T>
+ */
 class CompanySegmentRepository extends CommonRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CompanySegment::class);
     }
+
+    /**
+     * @param array<mixed> $ids
+     *
+     * @return array<CompanySegment>
+     */
     public function getSegmentObjectsViaListOfIDs(array $ids): array
     {
         $q = $this->getEntityManager()->createQueryBuilder()
@@ -28,13 +40,18 @@ class CompanySegmentRepository extends CommonRepository
             $q->andWhere($q->expr()->in('cs.id', $ids));
         }
 
-
         return $q->getQuery()->getResult();
     }
 
-    public function getCompanyArrayFromCompanySegments(array $companySegments){
+    /**
+     * @param array<CompanySegment> $companySegments
+     *
+     * @return array<Company>
+     */
+    public function getCompanyArrayFromCompanySegments(array $companySegments): array
+    {
         if (empty($companySegments)) {
-            return;
+            throwException(new \Mautic\IntegrationsBundle\Exception\UnexpectedValueException('No CompanySegment was passed to method getCompanyArrayFromCompanySegments'));
         }
         $companies = [];
         foreach ($companySegments as $companySegment) {
@@ -44,7 +61,7 @@ class CompanySegmentRepository extends CommonRepository
                 }
             }
         }
+
         return array_unique($companies, SORT_REGULAR);
     }
-
 }
