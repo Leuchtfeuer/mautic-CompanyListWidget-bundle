@@ -17,6 +17,7 @@ class CompanySegmentRepositoryTest extends KernelTestCase
             ->getManager();
 
         $this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class, \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository::class);
+
     }
 
     public function testGetSegmentObjectsViaListOfIDs()
