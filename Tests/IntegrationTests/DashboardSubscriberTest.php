@@ -4,6 +4,7 @@ namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Integr
 
 use Mautic\CoreBundle\Helper\CsvHelper;
 use Mautic\CoreBundle\Translation\Translator;
+use Mautic\DashboardBundle\Event\WidgetDetailEvent;
 use Mautic\LeadBundle\Entity\Company;
 use Mautic\LeadBundle\Model\LeadModel;
 use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository;
@@ -36,6 +37,13 @@ class DashboardSubscriberTest extends KernelTestCase
         $this->leadModel = self::getContainer()->get(LeadModel::class);
         $this->router = self::getContainer()->get(Router::class);
         $this->config = self::getContainer()->get(Config::class);
+
+        //$this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class, \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository::class);
+    }
+
+    public function testOnWidgetDetailGenerate()
+    {
+
         $this->companySegmentRepository = $this->createMock(CompanySegmentRepository::class);
 
         $this->companySegmentRepository->expects()->method('getSegmentObjectsViaListOfIDs')->willReturn('1');
@@ -58,12 +66,14 @@ class DashboardSubscriberTest extends KernelTestCase
 
 
         xdebug_break();
-        //$this->companySegmentRepository = $entityManager->getRepository(CompanySegment::class, \MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Entity\CompanySegmentRepository::class);
     }
 
-    public function testOnWidgetDetailGenerate()
+
+    public function testWhenEventDispatched()
     {
-        $this->translator = self::getContainer()->get(Translator::class);
+        $dispatcher = self::getContainer()->get('event_dispatcher');
+        $event = new WidgetDetailEvent();
+        $dispatcher->dispatch('widget.detail.generate', $event);
     }
 }
 
