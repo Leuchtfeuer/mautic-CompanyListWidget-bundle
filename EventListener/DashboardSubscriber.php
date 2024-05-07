@@ -108,8 +108,8 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
             ]);
         }
 
-        // $event->setTemplate('@MauticCore/Helper/table.html.twig');
-        $event->setTemplate('@LeuchtfeuerCompanySegmentMembersWidget/companysegmentmemberstable.html.twig');
+        $event->setTemplate('@MauticCore/Helper/table.html.twig');
+        //$event->setTemplate('@LeuchtfeuerCompanySegmentMembersWidget/companysegmentmemberstable.html.twig');
         $event->stopPropagation();
     }
 }

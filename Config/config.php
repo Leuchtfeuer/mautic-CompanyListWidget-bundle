@@ -35,7 +35,7 @@ return [
                 'class'     => MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Tests\Fixtures\LoadCompanySegmentData::class,
                 'tag'       => Doctrine\Bundle\FixturesBundle\DependencyInjection\CompilerPass\FixturesCompilerPass::FIXTURE_TAG,
                 'arguments' => [
-                    'mautic.leuchtfeuercompanysegments.model.companysegment',
+                    'mautic.company_segments.model.company_segment',
                     'mautic.lead.model.company',
                     'mautic.lead.repository.company',
                 ],
