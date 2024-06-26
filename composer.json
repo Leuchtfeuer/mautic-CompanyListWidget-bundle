@@ -15,7 +15,7 @@
         "friendsofphp/php-cs-fixer": "^3.54"
     },
     "extra": {
-        "install-directory-name": "LeuchtfeuerCompanySegmentWidgetBundle"
+        "install-directory-name": "LeuchtfeuerCompanySegmentMembersWidgetBundle"
     },
     "autoload": {
         "psr-4": {
