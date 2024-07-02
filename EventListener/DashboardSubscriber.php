@@ -59,19 +59,27 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         }
 
         if (!$event->isCached()) {
+
+            //get company objects from selected companysegments
             $arrayWithIDsOfSelectedSegments = $event->getWidget()->getParams()['companysegments'];
             $companySegments                = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($arrayWithIDsOfSelectedSegments);
             $companies                      = $this->companySegmentRepository->getCompanyArrayFromCompanySegments($companySegments);
 
+            //sort companies
             usort($companies, function ($a, $b) {
                 return $b->getDateAdded() <=> $a->getDateAdded();
             });
 
+            //reduce companies to limit
             $limit            = intval(round((($event->getWidget()->getHeight() - 80) / 35) - 1));
             $companiesReduced = array_slice($companies, 0, $limit);
+
             $items            = [];
 
+
             foreach ($companiesReduced as $company) {
+
+                //get company data
                 $companyId        = $company->getId();
                 $companyName      = $company->getName();
                 $companyWebsite   = $company->getWebsite();
@@ -79,6 +87,7 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
                 $nameType         = 'link';
                 $websiteType      = (null !== $companyWebsite) ? 'link' : 'text';
 
+                //add company data to items
                 $row = [
                     ['value' => $companyId],
                     [
