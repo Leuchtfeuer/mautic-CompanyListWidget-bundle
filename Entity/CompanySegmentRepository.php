@@ -61,7 +61,6 @@ class CompanySegmentRepository extends CommonRepository
                 }
             }
         }
-        //test
 
         return array_unique($companies, SORT_REGULAR);
     }
