@@ -27,6 +27,8 @@ class CompanySegmentRepository extends CommonRepository
      *
      * @return array<CompanySegment>
      */
+
+    // this function is needed in both LeuchtfeuerCompanySegmentMembersWidget and for the Company Segment Filter in the Report Section
     public function getSegmentObjectsViaListOfIDs(array $ids): array
     {
         $q = $this->getEntityManager()->createQueryBuilder()
