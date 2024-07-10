@@ -1,0 +1,34 @@
+{
+    "name": "leuchtfeuer/companysegmentmemberswidget",
+    "description": "Add Widget that displays members of a Company Segment in the Dashboard",
+    "type": "mautic-plugin",
+    "license": "GPL-3.0",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Leuchtfeuer Digital Marketing GmbH",
+            "email": "mautic-plugins@Leuchtfeuer.com"
+        }
+    ],
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.54"
+    },
+    "extra": {
+        "install-directory-name": "LeuchtfeuerCompanySegmentMembersWidgetBundle"
+    },
+    "autoload": {
+        "psr-4": {
+            "MauticPlugin\\LeuchtfeuerCompanySegmentMembersWidgetBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MauticPlugin\\LeuchtfeuerCompanySegmentsMembersWidgetBundle\\Tests\\": "Tests"
+        }
+    },
+    "scripts": {
+        "fixcs": "./vendor/bin/php-cs-fixer fix --show-progress dots -v"
+    }
+}
+
