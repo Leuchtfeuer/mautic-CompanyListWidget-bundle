@@ -69,6 +69,7 @@ and
 * Filtering for Tags
 * Configurable columns
 * Actions from within Widget
+* Honor "Company" permissions (as soon as that exists in Mautic :)
 
 ## Credits
 * @JonasLudwig1998
