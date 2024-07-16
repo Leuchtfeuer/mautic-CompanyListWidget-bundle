@@ -1,17 +1,18 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Form\Type;
+namespace MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Form\Type;
 
 use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
+use MauticPlugin\LeuchtfeuerCompanyTagsBundle\Entity\CompanyTagsRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class DashboardCompanySegmentMembersType extends AbstractType
+class DashboardCompanyListType extends AbstractType
 {
     public function __construct(
         protected CompanySegmentRepository $companySegmentRepository,
+        protected CompanyTagsRepository $companyTagsRepository,
     ) {
     }
 
@@ -33,25 +34,30 @@ class DashboardCompanySegmentMembersType extends AbstractType
         ]
         );
 
-        $orderoptions = ['mautic.widget.company.segment.members.orderbydatecreated' => 1];
-        $builder->add('order', ChoiceType::class, [
-            'label'             => 'mautic.widget.company.segment.members.ordertitle',
-            'multiple'          => false,
-            'choices'           => $orderoptions,
+        $tags        = $this->companyTagsRepository->getAllTagObjects();
+        $companyTags = [];
+        foreach ($tags as $tag) {
+            $companyTags[$tag->getTag()] = $tag->getID();
+        }
+
+        $builder->add('companytags', ChoiceType::class, [
+            'label'             => 'mautic.widget.company.tag.filter',
+            'multiple'          => true,
+            'choices'           => $companyTags,
             'label_attr'        => ['class' => 'control-label'],
             'attr'              => ['class' => 'form-control'],
             'required'          => false,
         ]
         );
 
-        $builder->add('limit', IntegerType::class, [
-            'label'             => 'mautic.widget.company.segment.members.limit',
+        $orderoptions = ['mautic.widget.company.list.orderbydatecreated' => 1];
+        $builder->add('order', ChoiceType::class, [
+            'label'             => 'mautic.widget.company.list.ordertitle',
+            'multiple'          => false,
+            'choices'           => $orderoptions,
             'label_attr'        => ['class' => 'control-label'],
             'attr'              => ['class' => 'form-control'],
             'required'          => false,
-            'disabled'          => true,
-            'mapped'            => false,
-            'help'              => 'The field function will be implemented at a later point',
         ]
         );
     }

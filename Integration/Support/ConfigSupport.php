@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\Support;
+namespace MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration\Support;
 
 use Mautic\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
-use MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration\LeuchtfeuerCompanySegmentMembersWidgetIntegration;
+use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration\LeuchtfeuerCompanyListWidgetIntegration;
 
-class ConfigSupport extends LeuchtfeuerCompanySegmentMembersWidgetIntegration implements ConfigFormInterface
+class ConfigSupport extends LeuchtfeuerCompanyListWidgetIntegration implements ConfigFormInterface
 {
     use DefaultConfigFormTrait;
 }
