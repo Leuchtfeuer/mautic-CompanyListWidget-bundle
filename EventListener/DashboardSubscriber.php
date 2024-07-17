@@ -76,8 +76,8 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
 
         $segmentCompanies = $this->getsCompaniesFromSelectedSegments($selectedSegments);
         $tagCompanies     = $this->getCompaniesFromSelectedTags($selectedTags);
-        $companies        = array_merge($tagCompanies, $segmentCompanies);
-        $companies        = array_unique($companies);
+
+        $companies = $this->mergeCompanies($segmentCompanies, $tagCompanies);
 
         usort($companies, function ($a, $b) {
             return $b->getDateAdded() <=> $a->getDateAdded();
@@ -202,9 +202,21 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         }
     }
 
+    private function mergeCompanies($segmentCompanies, $tagCompanies)
+    {
+        if (!empty($segmentCompanies) && !empty($tagCompanies)) {
+            return array_intersect($segmentCompanies, $tagCompanies);
+        }
+        else {
+            $companies        = array_merge($tagCompanies, $segmentCompanies);
+            return array_unique($companies);
+        }
+    }
+
     private function finalizeWidget(WidgetDetailEvent $event): void
     {
         $event->setTemplate('@MauticCore/Helper/table.html.twig');
         $event->stopPropagation();
     }
 }
+
