@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration;
+namespace MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration;
 
 use Mautic\IntegrationsBundle\Exception\IntegrationNotFoundException;
 use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
 use Mautic\PluginBundle\Entity\Integration;
+use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\LeuchtfeuerCompanyListWidgetBundle;
 
 class Config
 {
@@ -33,7 +34,7 @@ class Config
      */
     public function getIntegrationEntity(): Integration
     {
-        $integrationObject = $this->integrationsHelper->getIntegration(LeuchtfeuerCompanySegmentMembersWidgetIntegration::NAME);
+        $integrationObject = $this->integrationsHelper->getIntegration(LeuchtfeuerCompanyListWidgetBundle::class);
 
         return $integrationObject->getIntegrationConfiguration();
     }

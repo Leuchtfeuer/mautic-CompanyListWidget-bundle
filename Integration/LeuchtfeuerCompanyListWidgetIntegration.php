@@ -1,18 +1,18 @@
 <?php
 
-namespace MauticPlugin\LeuchtfeuerCompanySegmentMembersWidgetBundle\Integration;
+namespace MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration;
 
 use Mautic\IntegrationsBundle\Integration\BasicIntegration;
 use Mautic\IntegrationsBundle\Integration\ConfigurationTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\BasicInterface;
 
-class LeuchtfeuerCompanySegmentMembersWidgetIntegration extends BasicIntegration implements BasicInterface
+class LeuchtfeuerCompanyListWidgetIntegration extends BasicIntegration implements BasicInterface
 {
     use ConfigurationTrait;
 
     // there's probably a bug that does not allow this to be with the underscore like api_version
-    public const NAME         = 'leuchtfeuercompanysegmentmemberswidget';
-    public const DISPLAY_NAME = 'W:Comp.Segment Members by Leuchtfeuer';
+    public const NAME         = 'leuchtfeuercompanylistwidget';
+    public const DISPLAY_NAME = 'Company List Widget by Leuchtfeuer';
 
     public function getName(): string
     {
@@ -26,6 +26,6 @@ class LeuchtfeuerCompanySegmentMembersWidgetIntegration extends BasicIntegration
 
     public function getIcon(): string
     {
-        return 'plugins/LeuchtfeuerCompanySegmentMembersWidgetBundle/Assets/img/leuchtfeuercompanysegmentmemberswidget.png';
+        return 'plugins/LeuchtfeuerCompanyListWidgetBundle/Assets/img/leuchtfeuercompanylistwidget.png';
     }
 }
