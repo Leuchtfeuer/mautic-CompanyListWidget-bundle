@@ -1,6 +1,6 @@
 {
-    "name": "leuchtfeuer/companysegmentmemberswidget",
-    "description": "Add Widget that displays members of a Company Segment in the Dashboard",
+    "name": "leuchtfeuer/companylistwidget",
+    "description": "Add Widget that lists Companies (filtered by segment and/or tag) in the Dashboard",
     "type": "mautic-plugin",
     "license": "GPL-3.0",
     "minimum-stability": "dev",
@@ -11,22 +11,38 @@
             "email": "mautic-plugins@Leuchtfeuer.com"
         }
     ],
+
+
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.54"
+        "friendsofphp/php-cs-fixer": "^3.4"
     },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Leuchtfeuer/mautic-CompanySegments-bundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Leuchtfeuer/mautic-CompanyTags-bundle"
+        }
+    ],
+
+    "require": {
+        "leuchtfeuer/mautic-companytags-bundle": "^1.1",
+        "leuchtfeuer/mautic-companysegments-bundle":"^1.1"
+    },
+
+
     "extra": {
-        "install-directory-name": "LeuchtfeuerCompanySegmentMembersWidgetBundle"
+        "install-directory-name": "LeuchtfeuerCompanyListWidgetBundle"
     },
     "autoload": {
         "psr-4": {
             "MauticPlugin\\LeuchtfeuerCompanySegmentMembersWidgetBundle\\": ""
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "MauticPlugin\\LeuchtfeuerCompanySegmentsMembersWidgetBundle\\Tests\\": "Tests"
-        }
-    },
+
     "scripts": {
         "fixcs": "./vendor/bin/php-cs-fixer fix --show-progress dots -v"
     }
