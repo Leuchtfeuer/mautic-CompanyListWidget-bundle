@@ -5,6 +5,7 @@ namespace MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\EventListener;
 use Mautic\DashboardBundle\Event\WidgetDetailEvent;
 use Mautic\DashboardBundle\EventListener\DashboardSubscriber as OriginalDashboardSubscriber;
 use Mautic\LeadBundle\Entity\Company;
+use Mautic\LeadBundle\Entity\CompanyRepository;
 use Mautic\LeadBundle\Model\LeadModel;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Form\Type\DashboardCompanyListType;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration\Config;
@@ -53,6 +54,7 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         protected Config $config,
         protected CompanySegmentRepository $companySegmentRepository,
         protected CompanyTagsRepository $companyTagsRepository,
+        protected CompanyRepository $companyRepository,
     ) {
     }
 
@@ -73,7 +75,7 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
 
         $segmentCompanies = $this->getsCompaniesFromSelectedSegments($selectedSegments);
         $tagCompanies     = $this->getCompaniesFromSelectedTags($selectedTags);
-        $companies        = $this->mergeCompanies($segmentCompanies, $tagCompanies, $selectedSegments, $selectedTags);
+        $companies        = array_intersect($segmentCompanies, $tagCompanies);
 
         usort($companies, function ($a, $b): int {
             return $b->getDateAdded() <=> $a->getDateAdded();
@@ -130,11 +132,28 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
     private function getsCompaniesFromSelectedSegments(array $selectedSegments): array
     {
         if (empty($selectedSegments)) {
-            return [];
+            return $this->companyRepository->findAll();
         }
-        $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($selectedSegments);
 
-        return $this->getCompanyArrayFromCompanySegments($companySegments);
+        $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($selectedSegments);
+        $companies       = $this->getCompanyArrayFromCompanySegments($companySegments);
+
+        return $this->intersectCompanies($companies);
+    }
+
+    /**
+     * @param array<CompanySegment> $companySegments
+     *
+     * @return array<array<Company>>
+     */
+    public function getCompanyArrayFromCompanySegments(array $companySegments): array
+    {
+        $companies = [];
+        foreach ($companySegments as $companySegment) {
+            $companies[] = $companySegment->getCompanies()->toArray();
+        }
+
+        return $companies;
     }
 
     /**
@@ -145,47 +164,28 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
     private function getCompaniesFromSelectedTags(array $selectedTags): array
     {
         if (empty($selectedTags)) {
-            return [];
+            return $this->companyRepository->findAll();
         }
-        $companyTags = $this->companyTagsRepository->getTagObjectsByIds($selectedTags);
 
-        return $this->getCompanyArrayFromCompanyTags($companyTags);
+        $companyTags = $this->companyTagsRepository->getTagObjectsByIds($selectedTags);
+        $companies   = $this->getCompanyArrayFromCompanyTags($companyTags);
+
+        return $this->intersectCompanies($companies);
     }
 
     /**
      * @param array<CompanyTags> $companyTags
      *
-     * @return array<Company>
+     * @return array<array<Company>>
      */
     public function getCompanyArrayFromCompanyTags(array $companyTags): array
     {
-        if (empty($companyTags)) {
-            throw new \Mautic\IntegrationsBundle\Exception\UnexpectedValueException('No CompanyTag was passed to method getCompanyArrayFromCompanySegments');
-        }
         $companies = [];
         foreach ($companyTags as $companyTag) {
             $companies[] = $companyTag->getCompanies()->toArray();
         }
 
-        return $this->intersectCompanies($companies);
-    }
-
-    /**
-     * @param array<CompanySegment> $companySegments
-     *
-     * @return array<Company>
-     */
-    public function getCompanyArrayFromCompanySegments(array $companySegments): array
-    {
-        if (empty($companySegments)) {
-            throw new \Mautic\IntegrationsBundle\Exception\UnexpectedValueException('No CompanySegment was passed to method getCompanyArrayFromCompanySegments');
-        }
-        $companies = [];
-        foreach ($companySegments as $companySegment) {
-            $companies[] = $companySegment->getCompanies()->toArray();
-        }
-
-        return $this->intersectCompanies($companies);
+        return $companies;
     }
 
     /**
@@ -200,23 +200,11 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         }
 
         $intersectedCompanies = array_shift($companies);
-
         foreach ($companies as $companyList) {
             $intersectedCompanies = array_intersect($intersectedCompanies, $companyList);
         }
 
         return $intersectedCompanies;
-    }
-
-    private function mergeCompanies(array $segmentCompanies, array $tagCompanies, array $selectedSegments, array $selectedTags): array
-    {
-        if (!empty($selectedSegments) && !empty($selectedTags)) {
-            return array_intersect($segmentCompanies, $tagCompanies);
-        } else {
-            $companies = array_merge($tagCompanies, $segmentCompanies);
-
-            return array_unique($companies);
-        }
     }
 
     private function finalizeWidget(WidgetDetailEvent $event): void
