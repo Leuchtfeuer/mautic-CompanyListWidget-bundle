@@ -9,7 +9,7 @@ use Mautic\LeadBundle\Entity\CompanyRepository;
 use Mautic\LeadBundle\Model\LeadModel;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Form\Type\DashboardCompanyListType;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration\Config;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegment;
+use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompaniesSegmentsRepository;
 use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
 use MauticPlugin\LeuchtfeuerCompanyTagsBundle\Entity\CompanyTags;
 use MauticPlugin\LeuchtfeuerCompanyTagsBundle\Entity\CompanyTagsRepository;
@@ -55,6 +55,7 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         protected CompanySegmentRepository $companySegmentRepository,
         protected CompanyTagsRepository $companyTagsRepository,
         protected CompanyRepository $companyRepository,
+        protected CompaniesSegmentsRepository $companiesSegmentsRepository,
     ) {
     }
 
@@ -135,25 +136,15 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
             return $this->companyRepository->findAll();
         }
 
-        $companySegments = $this->companySegmentRepository->getSegmentObjectsViaListOfIDs($selectedSegments);
-        $companies       = $this->getCompanyArrayFromCompanySegments($companySegments);
-
-        return $this->intersectCompanies($companies);
-    }
-
-    /**
-     * @param array<CompanySegment> $companySegments
-     *
-     * @return array<array<Company>>
-     */
-    public function getCompanyArrayFromCompanySegments(array $companySegments): array
-    {
         $companies = [];
-        foreach ($companySegments as $companySegment) {
-            $companies[] = $companySegment->getCompanies()->toArray();
+        foreach ($selectedSegments as $segmentId) {
+            $companiesSegments = $this->companiesSegmentsRepository->getCompaniesSegmentsBySegmentIds([$segmentId]);
+            $companies[]       = array_unique(array_map(function ($entity): \Mautic\LeadBundle\Entity\Company {
+                return $entity->getCompany();
+            }, $companiesSegments));
         }
 
-        return $companies;
+        return $this->intersectCompanies($companies);
     }
 
     /**
