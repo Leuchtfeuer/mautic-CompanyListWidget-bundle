@@ -3,7 +3,7 @@
 return [
     'name'        => 'Company List Widget by Leuchtfeuer',
     'description' => 'Add Widget that lists Companies (filtered by segment and/or tag) in the Dashboard',
-    'version'     => '1.1.4',
+    'version'     => '1.1.5',
     'author'      => 'Leuchtfeuer Digital Marketing GmbH',
 
     'services'    => [
