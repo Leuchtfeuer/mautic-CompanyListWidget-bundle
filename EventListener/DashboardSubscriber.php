@@ -10,7 +10,6 @@ use Mautic\LeadBundle\Model\LeadModel;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Form\Type\DashboardCompanyListType;
 use MauticPlugin\LeuchtfeuerCompanyListWidgetBundle\Integration\Config;
 use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompaniesSegmentsRepository;
-use MauticPlugin\LeuchtfeuerCompanySegmentsBundle\Entity\CompanySegmentRepository;
 use MauticPlugin\LeuchtfeuerCompanyTagsBundle\Entity\CompanyTags;
 use MauticPlugin\LeuchtfeuerCompanyTagsBundle\Entity\CompanyTagsRepository;
 use Symfony\Component\Routing\RouterInterface;
@@ -52,7 +51,6 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
         protected RouterInterface $router,
         protected TranslatorInterface $translator,
         protected Config $config,
-        protected CompanySegmentRepository $companySegmentRepository,
         protected CompanyTagsRepository $companyTagsRepository,
         protected CompanyRepository $companyRepository,
         protected CompaniesSegmentsRepository $companiesSegmentsRepository,
