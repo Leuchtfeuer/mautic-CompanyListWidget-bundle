@@ -9,8 +9,7 @@ This plugin brings a new Dashobard Widget to Mautic which
 It is part of the "ABM" suite of plugins that extends Mautic capabilities for working with Companies.
 
 ## Requirements
-- Mautic 5.x (minimum 5.1)
-- PHP 8.1 or higher
+- Mautic 6.x 
 - Company Tags and Company Segments Plugins
 
 ## Installation
