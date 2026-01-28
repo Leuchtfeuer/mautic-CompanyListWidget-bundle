@@ -69,8 +69,10 @@ class DashboardSubscriber extends OriginalDashboardSubscriber
             return;
         }
 
-        $selectedSegments = $event->getWidget()->getParams()['companysegments'];
-        $selectedTags     = $event->getWidget()->getParams()['companytags'];
+        /** @var array<int> $selectedSegments */
+        $selectedSegments = $event->getWidget()->getParams()['companysegments'] ?? [];
+        /** @var array<int> $selectedTags */
+        $selectedTags     = $event->getWidget()->getParams()['companytags'] ?? [];
 
         $segmentCompanies = $this->getsCompaniesFromSelectedSegments($selectedSegments);
         $tagCompanies     = $this->getCompaniesFromSelectedTags($selectedTags);
