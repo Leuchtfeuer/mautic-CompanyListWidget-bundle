@@ -66,6 +66,7 @@ and
 ## Future Ideas
 * Configurable columns
 * Actions from within Widget
+* Honor Company / CompanySegment permissions (as soon as that exists in Mautic :)
 
 ## Credits
 * @biozshock
