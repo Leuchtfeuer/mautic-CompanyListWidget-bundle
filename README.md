@@ -67,14 +67,17 @@ and
 ## Future Ideas
 * Configurable columns
 * Actions from within Widget
-* Honor "Company" permissions (as soon as that exists in Mautic :)
 
 ## Credits
+*## Credits
+* @biozshock
+* @ekkeguembel
 * @JonasLudwig1998
 * @lenonleite
-* @ekkeguembel
+* @LeonOltmanns
+* @MadlenF
 * @PatrickJenkner
-* @pzarleuchtfeuer
+* @patrykgruszka
 
 ## Author and Contact
 Leuchtfeuer Digital Marketing GmbH
