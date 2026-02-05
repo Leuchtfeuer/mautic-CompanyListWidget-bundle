@@ -11,7 +11,7 @@ It is part of the "ABM" suite of plugins that extends Mautic capabilities for wo
 ## Requirements for this release (other releases may cover different Mautic versions!)
 - Mautic 5.x (min. 5.1)
 - PHP min. 8.1
-- Company Tags and Company Segments Plugins
+- Company Segments and Company Tags Plugins
 
 ## Installation
 ### Composer
@@ -67,6 +67,7 @@ and
 ## Future Ideas
 * Configurable columns
 * Actions from within Widget
+* Honor Company / CompanySegment permissions (as soon as that exists in Mautic :)
 
 ## Credits
 *## Credits
