@@ -2,7 +2,7 @@
     "name": "leuchtfeuer/mautic-companylistwidget-bundle",
     "description": "Add Widget that lists Companies (filtered by segment and/or tag) in the Dashboard",
     "type": "mautic-plugin",
-    "license": "GPL-3.0-or-later",
+    "license": "GPL-3.0",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "authors": [
